@@ -1,5 +1,5 @@
-#ifndef LISTS_H
-#define LISTS_H
+#ifndef MONTY_H
+#define MONTY_H
 
 #include <string.h>
 #include <stdio.h>
