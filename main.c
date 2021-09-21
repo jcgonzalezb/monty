@@ -1,7 +1,7 @@
 #include "monty.h"
 #define TOK_DELIM " \t\r\n\a\\$"
 
-void _push(char **args, char *line)
+void _push()
 {
 	printf("Aqui estoy\n");
 }
@@ -62,7 +62,7 @@ int main(int argc, char **argv)
 	int line_count = 0;
 	ssize_t line_size;
 	FILE *fp = fopen(argv[1], "r");
-	void (*selector)(char **, char *);
+	void (*selector)();
 
 	line_size = getline(&line_buf, &line_buf_size, fp);
 
@@ -80,6 +80,11 @@ int main(int argc, char **argv)
 		/*}*/
 		/*printf("%s\n", *args);*/
 		selector = selectf(args);
+		if (selector != NULL)
+		{
+			selector();
+
+		}
 		/*line_size: Size of every line*/
 		/*line_buf: Data in every line*/
 		/*printf("%ld\n", line_size);*/
