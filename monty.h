@@ -20,11 +20,11 @@
  * for stack, queues, LIFO, FIFO
  */
 /*typedef struct stack_s
-/*{
-/*        int n;
-/*        struct stack_s *prev;
-/*        struct stack_s *next;
-/*} stack_t;
+{
+        int n;
+        struct stack_s *prev;
+        struct stack_s *next;
+} stack_t;*/
 
 /**
  * struct instruction_s - opcode and its function
@@ -40,14 +40,16 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-typedef struct fun_struct
+typedef struct structur
 {
 	char *program;
-	int (*f)(va_list);
-} selec_f;
+	void (*f)(char **, char *);
+} order;
 
-
-
+char **tokenization(char *line);
+stack_t push (stack_t **head, const int n);
 void (*selector)(char **, char *);
+void _push();
+void pall();
 
 #endif
