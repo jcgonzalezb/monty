@@ -1,7 +1,9 @@
+#define _GNU_SOURCE
+#include <stdio.h>
 #include "monty.h"
 #define TOK_DELIM " \t\r\n\a\\$"
 
-void _push()
+void push()
 {
 	printf("Aqui estoy\n");
 }
@@ -9,6 +11,29 @@ void _push()
 void pall()
 {
 	printf("Por alla\n");
+}
+
+void pint()
+{	
+/*	if (h != NULL)
+	{
+		printf("%d\n", h->n);
+	}
+	else
+	{
+		fprintf(stderr, "L<line_number>: can't pint, stack empty\n", );
+		exit(EXIT_FAILURE);	
+	}
+	
+	*/
+
+	printf("Es por aca\n");
+}
+
+void nop ()
+{
+	(void) printf;
+	printf("nop is working\n");
 }
 
 char **tokenization(char *line)
@@ -32,37 +57,55 @@ char **tokenization(char *line)
 	return (tokens);
 }
 
-void (*selectf(char **args))(char **args, char* line)
+void (*selectf(char **args))(stack_t **stack, unsigned int line_number)
 {
 	int i = 0;
 
-	order options[] = {
-		{"push", _push},
+	instruction_t instruction_s[] = {
+		{"push", push},
 		{"pall", pall},
+		{"pint", pint},
+	/*	{"pop", pop},
+		{"swap", swap},
+		{"add", add},*/
+		{"nop", nop},
 		{NULL, NULL}
 	};
 
-	while (options[i].program != NULL)
+	while (instruction_s[i].opcode != NULL)
 	{
-		if (strcmp(args[0], options[i].program) == 0)
+		if (strcmp(args[0], instruction_s[i].opcode) == 0)
 		{
-			printf("%s %s\n", args[0], options[i].program);
-			return (options[i].f);
+			return (instruction_s[i].f);
 		}
 		i++;
 	}
 	return (NULL);
 }
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
 	char **args = NULL;
 	char *line_buf = NULL;
 	size_t line_buf_size = 0;
 	int line_count = 0;
 	ssize_t line_size;
-	FILE *fp = fopen(argv[1], "r");
 	void (*selector)();
+
+	FILE *fp = fopen(argv[1], "r");
+
+	if (argc != 2)
+	{
+		fprintf(stderr,"USAGE: monty file\n");
+		/*printf("USAGE: monty file\n");*/
+		exit(EXIT_FAILURE);
+	}
+
+	if ((fp = fopen(argv[1], "r")) == NULL)
+	{
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+		exit(EXIT_FAILURE);
+	}
 
 	line_size = getline(&line_buf, &line_buf_size, fp);
 
@@ -72,17 +115,34 @@ int main(int argc, char **argv)
 		/*printf("line count [%06d]\n", line_count);*/
 		/*printf("%s\n", line_buf);*/
 		args = tokenization(line_buf);
-		/*if (args[0] == NULL)*/
-		/*{*/
-		/*	free(args);*/
-		/*	free(line_buf);*/
-		/*	continue;*/
-		/*}*/
+		if (args[0] == NULL)
+		{
+			free(args);
+			free(line_buf);
+			continue;
+		}
+		
+/*		if (args[0] = "push")
+		{
+			if ((atoi(args[1]) >= 0 && atoi(args[1]) <= 9))
+			{
+				printf("%s\n", args[1]);
+			}
+		}
+		else
+			continue;*/
+
 		/*printf("%s\n", *args);*/
 		selector = selectf(args);
 		if (selector != NULL)
 		{
 			selector();
+			/*selector();*/
+		}
+		else
+		{
+
+
 
 		}
 		/*line_size: Size of every line*/

@@ -40,15 +40,16 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-typedef struct structur
+/*typedef struct structur
 {
 	char *program;
 	void (*f)(char **, char *);
-} order;
+} order;*/
 
 char **tokenization(char *line);
-stack_t push (stack_t **head, const int n);
-void (*selector)(char **, char *);
+/*stack_t push (stack_t **head, const int n);*/
+/*void (*selector)(char **, char *);*/
+void (*selector)();
 void _push();
 void pall();
 
