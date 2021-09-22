@@ -7,12 +7,12 @@
       "request": "launch",
       "args": [],
       "stopAtEntry": false,
-      "cwd": "/home/jcgonzalezb/monty",
+      "cwd": "/Volumes/Alejandra/REPOSITORIO/HOLBERTON/holbertonschool-low_level_programming/monty",
       "environment": [],
-      "program": "/home/jcgonzalezb/monty/build/Debug/outDebug",
+      "program": "/Volumes/Alejandra/REPOSITORIO/HOLBERTON/holbertonschool-low_level_programming/monty/build/Debug/outDebug",
       "internalConsoleOptions": "openOnSessionStart",
-      "MIMode": "gdb",
-      "miDebuggerPath": "/usr/bin/gdb",
+      "MIMode": "lldb",
+      "miDebuggerPath": "/usr/bin/lldb",
       "externalConsole": false,
       "setupCommands": [
         {
