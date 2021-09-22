@@ -1,6 +1,7 @@
 {
   "configurations": [
     {
+<<<<<<< HEAD
       "name": "linux-gcc-x64",
       "includePath": [
         "${workspaceFolder}/**"
@@ -9,6 +10,24 @@
       "cStandard": "${default}",
       "cppStandard": "${default}",
       "intelliSenseMode": "linux-gcc-x64",
+=======
+<<<<<<< HEAD
+      "name": "macos-clang-x64",
+=======
+      "name": "macos-gcc-x64",
+>>>>>>> ale
+      "includePath": [
+        "${workspaceFolder}/**"
+      ],
+      "compilerPath": "/usr/bin/clang",
+      "cStandard": "${default}",
+      "cppStandard": "${default}",
+<<<<<<< HEAD
+      "intelliSenseMode": "macos-clang-x64",
+=======
+      "intelliSenseMode": "macos-gcc-x64",
+>>>>>>> ale
+>>>>>>> 9078f249d7676c8bd676af201638722597cd4012
       "compilerArgs": [
         "-Wall",
         "-Wextra",
