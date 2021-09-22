@@ -1,51 +1,4 @@
 #include "monty.h"
-#define TOK_DELIM " \t\r\n\a\\$"
-
-char **tokenization(char *line)
-{
-	char *token;
-	int p = 0;
-	char **tokens = malloc(sizeof(char *) * 1024);
-
-	if (!tokens)
-		exit(EXIT_SUCCESS);
-
-	token = strtok(line, TOK_DELIM);
-
-	while (token != NULL)
-	{
-		tokens[p] = token;
-		p++;
-
-		token = strtok(NULL, TOK_DELIM);
-	}
-	tokens[p] = NULL;
-	return (tokens);
-}
-int (*selectf(char s))(va_list)
-{
-	int i = 0;
-
-	order options[] = {
-		{"Push", push},
-		{"pall", pall},
-		{NULL, NULL}};
-
-	while (options[i].program != NULL)
-	{
-		if (strcmp(args[0], options[i].program) == 0)
-		{
-			return (options[i].f);
-		}
-		i++;
-	}
-	return (NULL);
-}
-
-void _push()
-{
-	printf("este es el push");
-}
 
 int main(int argc, char **argv)
 {
@@ -55,7 +8,7 @@ int main(int argc, char **argv)
 	int line_count = 0;
 	ssize_t line_size;
 	FILE *fp = fopen(argv[1], "r");
-	void (*selector)(char **, char *);
+	void (*selector)();
 
 	line_size = getline(&line_buf, &line_buf_size, fp);
 
@@ -65,16 +18,22 @@ int main(int argc, char **argv)
 		/*printf("line count [%06d]\n", line_count);*/
 		/*printf("%s\n", line_buf);*/
 		args = tokenization(line_buf);
-		if (args[0] == NULL)
+		/*if (args[0] == NULL)*/
+		/*{*/
+		/*	free(args);*/
+		/*	free(line_buf);*/
+		/*	continue;*/
+		/*}*/
+		/*printf("%s\n", *args);*/
+		selector = selectf(args);
+		if (selector != NULL)
 		{
-			free(args);
-			free(line_buf);
-			continue;
+			selector();
+
 		}
 		/*line_size: Size of every line*/
 		/*line_buf: Data in every line*/
 		/*printf("%ld\n", line_size);*/
-		printf("%s\n", *args);
 		/* Get the next line */
 		line_size = getline(&line_buf, &line_buf_size, fp);
 	}
