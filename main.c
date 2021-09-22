@@ -35,21 +35,21 @@ int main(int argc, char *argv[])
 		close(fd);
 		exit(EXIT_FAILURE);
 	}
-	token = strtok(buffer, "\n\t\a\r ;:");
+	token = strtok(buffer, "\n\t\a\r\\$ ;:");
 	while (token != NULL)
 	{
 		if (ispush == 1)
 		{
 			push(&h, line, token);
 			ispush = 0;
-			token = strtok(NULL, "\n\t\a\r ;:");
+			token = strtok(NULL, "\n\t\a\r\\$ ;:");
 			line++;
 			continue;
 		}
 		else if (strcmp(token, "push") == 0)
 		{
 			ispush = 1;
-			token = strtok(NULL, "\n\t\a\r ;:");
+			token = strtok(NULL, "\n\t\a\r\\$ ;:");
 			continue;
 		}
 		else
@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
 			}
 		}
 		line++;
-		token = strtok(NULL, "\n\t\a\r ;:");
+		token = strtok(NULL, "\n\t\a\r\\$ ;:");
 	}
 	free_dlist(&h); free(buffer);
 	close(fd);
