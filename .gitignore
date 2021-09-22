@@ -363,8 +363,12 @@ MigrationBackup/
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
+<<<<<<< HEAD
 .ionide
 
 .DS_Store
 .vscode/launch.json
 .vscode/settings.json
+=======
+.ionide
+>>>>>>> juank
