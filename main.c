@@ -1,40 +1,74 @@
 #include "monty.h"
+
 /**
- * main - Entry point
- * @argc: number of arguments passed by console.
- * @argv: list of arguments passed by console.
- * Return: EXIT_SUCCESS on success EXIT_FAILURE on error
- * main valida que los argumentos pasados por consola sean validos
- * si son validos pasa el archivo a la funcion monty, si no son
- * validos termina un el programa con un mensaje de error
-*/
-int main(int argc, char **argv)
+ * main - entry into interpreter
+ * @argc: argc counter
+ * @argv: arguments
+ * Return: 0 on success
+ */
+int main(int argc, char *argv[])
 {
-	FILE *fp = NULL;
-	/**
-	 * argc_validator: Valida que se lean dos
-	 * argumentos por consola
-	 */
-	argc_validator(argc);
-	/**
-	 * fopen recibe el argumento de la posicion 1
-	 * y lo abre para lectura
-	*/
-	fp = fopen(argv[1], "r");
-	/**
-	 * se valida si el archivo es valido de lo contrario
-	 * se muestra un error y se cierra el programa
-	*/
-	if(fp == NULL)
+	int fd, ispush = 0;
+	unsigned int line = 1;
+	ssize_t line_size;
+	char *buffer, *token;
+	stack_t *h = NULL;
+
+	if (argc != 2)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", fp);
+		printf("USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
-	/**
-	 * la funcion monty continua con la ejecucion del programa
-	 * recibe el archivo que ya fue abierto.
-	*/
-	monty(fp);
-	fclose(fp);
-	return (EXIT_SUCCESS);
+	fd = open(argv[1], O_RDONLY);
+	if (fd == -1)
+	{
+		printf("Error: Can't open file %s\n", argv[1]);
+		exit(EXIT_FAILURE);
+	}
+	buffer = malloc(sizeof(char) * 10000);
+	if (!buffer)
+		return (0);
+	line_size = read(fd, buffer, 10000);
+	if (line_size == -1)
+	{
+		free(buffer);
+		close(fd);
+		exit(EXIT_FAILURE);
+	}
+	token = strtok(buffer, "\n\t\a\r ;:");
+	while (token != NULL)
+	{
+		if (ispush == 1)
+		{
+			push(&h, line, token);
+			ispush = 0;
+			token = strtok(NULL, "\n\t\a\r ;:");
+			line++;
+			continue;
+		}
+		else if (strcmp(token, "push") == 0)
+		{
+			ispush = 1;
+			token = strtok(NULL, "\n\t\a\r ;:");
+			continue;
+		}
+		else
+		{
+			if (get_op_func(token) != 0)
+			{
+				get_op_func(token)(&h, line);
+			}
+			else
+			{
+				free_dlist(&h);
+				printf("L%d: unknown instruction %s\n", line, token);
+				exit(EXIT_FAILURE);
+			}
+		}
+		line++;
+		token = strtok(NULL, "\n\t\a\r ;:");
+	}
+	free_dlist(&h); free(buffer);
+	close(fd);
+	return (0);
 }
