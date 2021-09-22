@@ -1,5 +1,6 @@
 #ifndef MONTY_H
 #define MONTY_H
+#define TOK_DELIM " \t\r\n\a\\$"
 
 #include <string.h>
 #include <stdio.h>
@@ -48,7 +49,10 @@ typedef struct structur
 
 char **tokenization(char *line);
 stack_t push (stack_t **head, const int n);
+void (*selectf(char **args))(char **args, char *line);
 void (*selector)(char **, char *);
+void argc_validator(int argc);
+void _isdigit(char *args, int line_count);
 void _push();
 void pall();
 
