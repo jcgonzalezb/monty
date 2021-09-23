@@ -53,6 +53,9 @@ void swap(stack_t **h, unsigned int line_number);
 void nop(stack_t **h, unsigned int line_number);
 void _add(stack_t **h, unsigned int line_number);
 void pchar(stack_t **h, unsigned int line_number);
+void _sub(stack_t **h, unsigned int line_number);
+void _mul(stack_t **h, unsigned int line_number);
+void _div(stack_t **h, unsigned int line_number);
 
 int add_end_node(stack_t **h, int n);
 void delete_end_node(stack_t **h);
