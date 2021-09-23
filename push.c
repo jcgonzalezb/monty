@@ -31,7 +31,7 @@ void push(stack_t **h, unsigned int line_number, const char *n)
 		return;
 	if (is_number(n) == -1)
 	{
-		printf("L%u: usage: push integer\n", line_number);
+		fprintf(stderr, "L%u: usage: push integer\n", line_number);
 		free_dlist(h);
 		exit(EXIT_FAILURE);
 	}
@@ -62,7 +62,7 @@ int add_end_node(stack_t **h, int n)
 	new = malloc(sizeof(struct stack_s));
 	if (!new)
 	{
-		printf("Error: malloc failed");
+		fprintf(stderr, "Error: malloc failed");
 		return (-1);
 	}
 	new->n = n;

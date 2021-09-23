@@ -8,7 +8,7 @@ void pop(stack_t **h, unsigned int line_number)
 {
 	if (h == NULL || *h == NULL)
 	{
-		printf("L%u: can't pop an empty stack\n", line_number);
+		fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
 		free_dlist(h);
 		exit(EXIT_FAILURE);
 	}
