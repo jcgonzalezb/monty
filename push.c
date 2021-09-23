@@ -39,6 +39,7 @@ void push(stack_t **h, unsigned int line_number, const char *n)
 	{
 		if (add_end_node(h, atoi(n)) == -1)
 		{
+			fprintf(stderr, "L%u: usage: push integer\n", line_number);
 			free_dlist(h);
 			exit(EXIT_FAILURE);
 		}
