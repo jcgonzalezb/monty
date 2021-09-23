@@ -9,7 +9,7 @@
 int main(int argc, char *argv[])
 {
 	int fd, ispush = 0;
-	unsigned int line = 0;
+	unsigned int line = 1;
 	ssize_t line_size;
 	char *buffer, *token;
 	stack_t *h = NULL;
