@@ -35,7 +35,7 @@ int main(int argc, char *argv[])
 		close(fd);
 		exit(EXIT_FAILURE);
 	}
-	token = strtok(buffer, "\n\t\a\r ;:-");
+	token = strtok(buffer, "\n\t\a\r\\$ ;:-");
 	while (token != NULL)
 	{
 		if (ispush == 1)
