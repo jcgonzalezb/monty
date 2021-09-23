@@ -15,14 +15,12 @@ int main(int argc, char *argv[])
 	stack_t *h = NULL;
 
 	if (argc != 2)
-	{
-		fprintf(stderr, "USAGE: monty file\n");
+	{	fprintf(stderr, "USAGE: monty file\n");
 		exit(EXIT_FAILURE);
 	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
-	{
-		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
+	{	fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE);
 	}
 	buffer = malloc(sizeof(char) * 10000);
@@ -30,8 +28,7 @@ int main(int argc, char *argv[])
 		return (0);
 	line_size = read(fd, buffer, 10000);
 	if (line_size == -1)
-	{
-		free(buffer);
+	{	free(buffer);
 		close(fd);
 		exit(EXIT_FAILURE);
 	}
@@ -41,8 +38,7 @@ int main(int argc, char *argv[])
 		if (ispush == 1)
 		{
 			push(&h, line, token);
-			ispush = 0;
-			token = strtok(NULL, "\n\t\a\r\\$ ;:-");
+			ispush = 0, token = strtok(NULL, "\n\t\a\r\\$ ;:-");
 			line++;
 			continue;
 		}
